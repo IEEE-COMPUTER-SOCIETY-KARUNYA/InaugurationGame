@@ -464,6 +464,10 @@ pre code {
   width: 100%;
 }
 
+#start-btn {
+  margin-bottom: 80px;
+}
+
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -799,11 +803,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100vh;
+  justify-content: flex-start;
+  min-height: 100vh;
   text-align: center;
   padding: var(--space-8);
-  padding-top: 4rem; /* Account for header button */
+  padding-top: 6rem; /* Account for header button */
+  padding-bottom: 4rem; /* Extra space at bottom */
 }
 
 .ieee-logo {
@@ -2307,4 +2312,95 @@ body {
 /* Compact vertical spacing between stacked notifications */
 .notification + .notification {
   margin-top: var(--space-8);
+}
+
+/* Small height devices (landscape phones, small tablets) */
+@media (max-height: 600px) {
+  .welcome-content {
+    height: auto;
+    min-height: 100vh;
+    justify-content: flex-start;
+    padding: var(--space-8);
+    padding-top: 6rem; /* More space for header button */
+    padding-bottom: 2rem;
+  }
+  
+  .ieee-logo {
+    margin-bottom: var(--space-4);
+    transform: scale(0.7);
+  }
+  
+  .tournament-title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-8);
+  }
+  
+  .tournament-description {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--space-6);
+  }
+  
+  .time-info {
+    margin-bottom: var(--space-6);
+    gap: var(--space-8);
+  }
+  
+  .time-badge, .levels-badge {
+    padding: var(--space-6) var(--space-12);
+    font-size: var(--font-size-xs);
+  }
+  
+  .registration-form {
+    margin-bottom: var(--space-6);
+  }
+  
+  .registration-form .form-group {
+    margin-bottom: var(--space-8);
+  }
+  
+  #start-btn {
+    margin-bottom: var(--space-8);
+  }
+}
+
+/* Very small height devices */
+@media (max-height: 500px) {
+  .welcome-content {
+    padding-top: 4rem;
+    padding-bottom: 1rem;
+  }
+  
+  .ieee-logo {
+    transform: scale(0.6);
+    margin-bottom: var(--space-2);
+  }
+  
+  .tournament-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--space-4);
+  }
+  
+  .tournament-description {
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-4);
+  }
+  
+  .time-info {
+    margin-bottom: var(--space-4);
+  }
+  
+  .registration-form .form-group {
+    margin-bottom: var(--space-6);
+  }
+  
+  .registration-form .form-control {
+    padding: var(--space-6) var(--space-8);
+    font-size: var(--font-size-sm);
+  }
+  
+  #start-btn {
+    padding: var(--space-6) var(--space-16);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--space-4);
+  }
 }
