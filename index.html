@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE Computer Society - Tournament Challenge</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme.css">
+</head>
+<body>
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="screen active">
+        <div class="container">
+            <div class="welcome-header">
+                <button id="welcome-leaderboard-btn" class="btn btn--outline btn--sm leaderboard-corner-btn" title="View Live Leaderboard">🏆 Leaderboard</button>
+            </div>
+            <div class="welcome-content">
+                <div class="ieee-logo">
+                    <img src="IEEE_Computer_Society_Logo-removebg-preview(1).png" alt="IEEE Computer Society" style="max-width: 260px; height: auto; display: block; margin: 0 auto;" />
+                </div>
+                <h1 class="tournament-title">Inauguration Tournament</h1>
+                <p class="tournament-description">Test your skills across 5 challenging levels of computer science mastery</p>
+                <div class="time-info">
+                    <div class="time-badge">⏱️ 10 Minutes Total</div>
+                    <div class="levels-badge">🏆 5 Progressive Levels</div>
+                </div>
+                
+                <!-- Registration Form -->
+                <div class="registration-form">
+                    <div class="form-group">
+                        <label for="student-name" class="form-label">Student Name</label>
+                        <input type="text" id="student-name" class="form-control" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-number" class="form-label">Student Registration Number</label>
+                        <input type="text" id="register-number" class="form-control" placeholder="Enter your Registration Number" maxlength="11" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" id="password" class="form-control" placeholder="Enter a password" required>
+                    </div>
+                    <div id="registration-error" class="error-message hidden">Please enter your name, registration number, and password</div>
+                </div>
+                
+                <button id="start-btn" class="btn btn--primary btn--lg">Start Tournament</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <div class="game-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="game-info">
+                        <div class="level-indicator">
+                            Level <span id="current-level">1</span> of 5
+                        </div>
+                        <h2 id="level-title">Binary Memory Pattern</h2>
+                    </div>
+                    <div class="game-stats">
+                        <button id="leaderboard-btn" class="btn btn--outline btn--sm" style="margin-right: 1rem;" title="View Live Leaderboard">🏆 Leaderboard</button>
+                        <div class="timer" id="timer">10:00</div>
+                        <div class="score">Score: <span id="score">0</span></div>
+                    </div>
+                </div>
+                <div class="level-navigation" id="level-navigation">
+                    <!-- Level navigation buttons will be added here -->
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-content">
+            <div class="container">
+                <!-- Level 1: Binary Memory Pattern -->
+                <div id="level-1" class="level-container active">
+                    <div class="level-description">
+                        <p>Memorize the binary pattern, then reproduce it by clicking the cells</p>
+                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">Tip: Tap/click cells to toggle between 0 and 1. You have limited attempts—use Show Pattern to preview and Clear to restart your input.</p>
+                        <div class="attempts-counter">Attempts: <span id="attempts-left">3</span> remaining</div>
+                    </div>
+                    <div id="binary-grid" class="binary-grid"></div>
+                    <div class="level-controls">
+                        <button id="show-pattern" class="btn btn--primary">Show Pattern</button>
+                        <button id="submit-pattern" class="btn btn--primary hidden">Submit Pattern</button>
+                        <button id="clear-pattern" class="btn btn--secondary hidden">Clear</button>
+                        <button id="skip-level-1" class="btn btn--outline">Skip Level</button>
+                    </div>
+                </div>
+
+                <!-- Level 2: Algorithm Pathfinding -->
+                <div id="level-2" class="level-container">
+                    <div class="level-description">
+                        <p><strong>🎯 Mission:</strong> Program the robot to navigate from START (green) to GOAL (red)! Add moves by either dragging blocks or clicking them.</p>
+                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">💡 Tip: You can drag blocks into the sequence or simply click to append; re-order or clear if you make a mistake.</p>
+                    </div>
+                    <div class="pathfinding-container">
+                        <div id="algorithm-blocks" class="algorithm-blocks">
+                            <div class="block" data-action="forward">▲ Forward</div>
+                            <div class="block" data-action="turnLeft">◀ Turn Left</div>
+                            <div class="block" data-action="turnRight">▶ Turn Right</div>
+                        </div>
+                        <div id="pathfinding-grid" class="pathfinding-grid"></div>
+                        <div id="algorithm-sequence" class="algorithm-sequence">
+                            <h4>Algorithm Sequence:</h4>
+                            <div id="sequence-blocks" class="sequence-blocks"></div>
+                        </div>
+                    </div>
+                    <div class="level-controls">
+                        <button id="run-algorithm" class="btn btn--primary">Run Algorithm</button>
+                        <button id="clear-algorithm" class="btn btn--secondary">Clear</button>
+                        <button id="skip-level-2" class="btn btn--outline">Skip Level</button>
+                    </div>
+                </div>
+
+                <!-- Level 3: Cybersecurity Firewall -->
+                <div id="level-3" class="level-container">
+                    <div class="level-description">
+                        <p>Block malicious packets (red) and allow safe ones (green)</p>
+                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">💡 Tip: You can only click a packet after it crosses the firewall line—watch for the cursor change near the line.</p>
+                        <div class="firewall-stats">
+                            <div>Safe Allowed: <span id="safe-allowed">0</span>/<span id="total-safe">0</span></div>
+                            <div>Threats Blocked: <span id="threats-blocked">0</span>/<span id="total-threats">0</span></div>
+                        </div>
+                    </div>
+                    <div id="firewall-area" class="firewall-area">
+                        <div class="firewall-line"></div>
+                    </div>
+                    <div class="level-controls">
+                        <button id="start-firewall" class="btn btn--primary">Start Firewall Test</button>
+                        <button id="skip-level-3" class="btn btn--outline">Skip Level</button>
+                    </div>
+                </div>
+
+                <!-- Level 4: AI Training Challenge -->
+                <div id="level-4" class="level-container">
+                    <div class="level-description">
+                        <p>Train the AI by selecting correct responses to scenarios</p>
+                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">💡 Tip: Click the best option (no dragging). The progress bar shows your training progress for this level.</p>
+                        <div class="ai-progress">
+                            
+                            <div class="progress-bar small">
+                                <div id="ai-progress-fill" class="progress-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="ai-scenario" class="ai-scenario">
+                        <div id="scenario-question" class="scenario-question"></div>
+                        <div id="scenario-options" class="scenario-options"></div>
+                    </div>
+                    <div class="level-controls">
+                        <button id="start-ai-training" class="btn btn--primary">Start AI Training</button>
+                        <button id="skip-level-4" class="btn btn--outline">Skip Level</button>
+                    </div>
+                </div>
+
+                <!-- Level 5: Real-time Coding Duel -->
+                <div id="level-5" class="level-container">
+                    <div class="level-description">
+                        <p><strong>🎯 Mission:</strong> Complete the algorithm using drag-and-drop or click-to-add code blocks</p>
+                        <p style="font-size: var(--font-size-sm); color: var(--color-text-secondary);">💡 Tip: Drag the colored blocks to the editor or click them to add. Arrange them in the correct order!</p>
+                        <div id="coding-challenge-title" class="challenge-title"></div>
+                    </div>
+                    <div class="coding-container">
+                        <div id="code-blocks" class="code-blocks">
+                            <!-- Code blocks will be dynamically generated based on selected algorithm -->
+                        </div>
+                        <div id="code-editor" class="code-editor">
+                            <h4>Your Algorithm:</h4>
+                            <div id="code-lines" class="code-lines"></div>
+                        </div>
+                    </div>
+                    <div class="level-controls">
+                        <button id="run-code" class="btn btn--primary">Execute Code</button>
+                        <button id="clear-code" class="btn btn--secondary">Clear</button>
+                        <button id="skip-level-5" class="btn btn--outline">Skip Level</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div id="results-screen" class="screen">
+        <div class="container">
+            <div class="results-content">
+                <div class="results-header">
+                    <div class="ieee-logo small">
+                        <img src="IEEE_Computer_Society_Logo-removebg-preview(1).png" alt="IEEE Computer Society" style="max-width: 220px; height: auto; display: block; margin: 0 auto;" />
+                    </div>
+                    <h1>Tournament Complete!</h1>
+                    <div class="registration-display">
+                        Registration: <span id="final-registration">--</span>
+                    </div>
+                </div>
+                <div class="results-summary">
+                    <div class="final-score">
+                        <div class="score-value" id="final-score">0</div>
+                        <div class="score-label">Final Score</div>
+                    </div>
+                    <div class="results-stats">
+                        <div class="stat">
+                            <div class="stat-value" id="levels-completed">0</div>
+                            <div class="stat-label">Levels Completed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value" id="time-remaining">0:00</div>
+                            <div class="stat-label">Time Remaining</div>
+                        </div>
+                        <div class="stat">
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="level-breakdown" id="level-breakdown"></div>
+                <div class="results-actions">
+                    <button id="view-leaderboard-btn" class="btn btn--primary btn--lg">View Leaderboard</button>
+                    <button id="restart-btn" class="btn btn--secondary btn--lg">Play Again</button>
+                    <button id="share-btn" class="btn btn--outline btn--lg">Share Results</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particles Container -->
+    <div id="particles-container" class="particles-container"></div>
+
+    <!-- Notification System -->
+    <div id="notification-container" class="notification-container"></div>
+
+    <script src="constants.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
